@@ -1,0 +1,3573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSafe Hub - Complete Cybersecurity Learning Platform</title>
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #112240;
+            --accent: #64ffda;
+            --text: #e6f1ff;
+            --text-secondary: #8892b0;
+            --danger: #ff5252;
+            --warning: #ffb74d;
+            --success: #4caf50;
+            --card-bg: rgba(17, 34, 64, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .shield-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(100, 255, 218, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(100, 255, 218, 0); }
+        }
+        
+        .shield-icon:after {
+            content: "✓";
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent);
+        }
+        
+        .threat-card:before {
+            background: var(--danger);
+        }
+        
+        .safeguard-card:before {
+            background: var(--success);
+        }
+        
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+        
+        .threat-card h3 {
+            color: var(--danger);
+        }
+        
+        .safeguard-card h3 {
+            color: var(--success);
+        }
+        
+        .card-icon {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .card-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-content p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .card-content ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-content li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .interactive-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--secondary);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .interactive-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: #52e0c4;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(100, 255, 218, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(136, 146, 176, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .hacker-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 2rem 0;
+            overflow: hidden;
+            border-radius: 10px;
+            background: rgba(10, 25, 47, 0.7);
+        }
+        
+        .binary-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .binary-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .binary-digit {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(200px);
+            }
+        }
+        
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            animation: scan 3s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+        
+        /* Login System Styles */
+        .login-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .login-option {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            background: var(--primary);
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-option.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        .login-form {
+            display: none;
+        }
+        
+        .login-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: 1px solid rgba(136, 146, 176, 0.3);
+            background: rgba(10, 25, 47, 0.5);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .error-message {
+            color: var(--danger);
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .success-message {
+            color: var(--success);
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .user-info {
+            text-align: right;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        /* Registration Styles */
+        .register-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-toggle {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .auth-toggle a {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        /* Content Modal Styles */
+        .content-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .content-page {
+            margin-bottom: 3rem;
+        }
+        
+        .content-page h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.3);
+        }
+        
+        .content-page h3 {
+            color: var(--text);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .content-page ul, .content-page ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .content-page li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .content-page table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .content-page th, .content-page td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid rgba(136, 146, 176, 0.3);
+        }
+        
+        .content-page th {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+        }
+        
+        .content-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        /* Cyber Awareness Program Styles */
+        .cyber-awareness-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        
+        .awareness-modal-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .awareness-tabs {
+            margin-top: 2rem;
+        }
+        
+        .tab-header {
+            display: flex;
+            border-bottom: 1px solid rgba(136, 146, 176, 0.3);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-link {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-link:hover {
+            color: var(--text);
+        }
+        
+        .tab-link.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .program-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            margin: 0.5rem;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .learning-outcomes {
+            margin-top: 2rem;
+        }
+        
+        .outcome-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(10, 25, 47, 0.3);
+            border-radius: 8px;
+        }
+        
+        .outcome-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .outcome-text {
+            color: var(--text-secondary);
+        }
+        
+        /* Video Grid Styles */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .video-card {
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 140px;
+            overflow: hidden;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(100, 255, 218, 0.9);
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .video-info {
+            padding: 1rem;
+        }
+        
+        .video-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .video-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .video-duration {
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        
+        .video-player {
+            margin-top: 2rem;
+            background: rgba(10, 25, 47, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(17, 34, 64, 0.9);
+            border-bottom: 1px solid rgba(136, 146, 176, 0.3);
+        }
+        
+        .player-header h3 {
+            color: var(--text);
+            margin: 0;
+        }
+        
+        .close-player {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .player-content {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .video-placeholder {
+            padding: 3rem;
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+        
+        /* Phish or Real Game Styles */
+        .game-container {
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+        
+        .score-display, .lives-display {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        .message-display {
+            background: rgba(17, 34, 64, 0.8);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(136, 146, 176, 0.3);
+        }
+        
+        .game-actions {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+        }
+        
+        .btn-success {
+            background: var(--success);
+        }
+        
+        .game-feedback {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .game-feedback.correct {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--success);
+            display: block;
+        }
+        
+        .game-feedback.incorrect {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--danger);
+            display: block;
+        }
+        
+        .leaderboard {
+            margin-top: 2rem;
+        }
+        
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(136, 146, 176, 0.3);
+        }
+        
+        .leaderboard-table th {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+        }
+        
+        .leaderboard-table tr:nth-child(even) {
+            background: rgba(10, 25, 47, 0.3);
+        }
+        
+        /* Ambassador Program Styles */
+        .ambassador-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .ambassador-card {
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .ambassador-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .ambassador-card ul {
+            padding-left: 1.5rem;
+        }
+        
+        .ambassador-card li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .application-form {
+            margin-top: 2rem;
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .application-form h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Simulation Exercise Styles */
+        .simulation-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .simulation-card {
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .simulation-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .simulation-card ol, .simulation-card ul {
+            padding-left: 1.5rem;
+        }
+        
+        .simulation-card li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .simulation-exercise {
+            margin-top: 2rem;
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .email-simulation {
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+        }
+        
+        .email-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .email-sender {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .email-subject {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .email-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .email-body p {
+            margin-bottom: 1rem;
+        }
+        
+        .suspicious-link {
+            color: #d32f2f;
+            text-decoration: underline;
+        }
+        
+        .exercise-questions {
+            margin-top: 2rem;
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+        }
+        
+        .options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .checkbox-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .checkbox-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .checkbox-options input {
+            margin-right: 0.5rem;
+        }
+        
+        .exercise-feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(10, 25, 47, 0.7);
+        }
+        
+        /* Student Dashboard Styles */
+        .student-dashboard {
+            margin-top: 2rem;
+        }
+        
+        .level-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .level-title {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .level-status {
+            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            background: rgba(136, 146, 176, 0.2);
+        }
+        
+        .level-status.completed {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+        
+        .level-status.in-progress {
+            background: rgba(255, 183, 77, 0.2);
+            color: #ffb74d;
+        }
+        
+        .level-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Quiz App Styles */
+        .quiz-app-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        
+        .quiz-app-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.3);
+        }
+        
+        .quiz-level {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .quiz-progress {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .quiz-option {
+            padding: 1rem;
+            background: var(--primary);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(136, 146, 176, 0.3);
+        }
+        
+        .quiz-option:hover {
+            background: rgba(100, 255, 218, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .quiz-option.selected {
+            background: rgba(100, 255, 218, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .quiz-option.correct {
+            background: var(--success);
+            color: white;
+        }
+        
+        .quiz-option.incorrect {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .level-complete {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+        
+        .level-complete h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .level-complete p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Celebration Animation */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1001;
+            display: none;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            opacity: 0.8;
+            animation: confetti-fall 5s linear forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: firework-explode 1s ease-out forwards;
+        }
+        
+        @keyframes firework-explode {
+            0% {
+                transform: translate(var(--x), var(--y)) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* Teacher Dashboard Styles */
+        .teacher-dashboard {
+            margin-top: 2rem;
+        }
+        
+        .student-progress-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .student-progress-table th, .student-progress-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(136, 146, 176, 0.3);
+        }
+        
+        .student-progress-table th {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.5s ease;
+        }
+        
+        /* Admin Dashboard Styles */
+        .admin-dashboard {
+            margin-top: 2rem;
+        }
+        
+        .admin-controls {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .admin-controls h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .user-table th, .user-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(136, 146, 176, 0.3);
+        }
+        
+        .user-table th {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+        }
+        
+        .user-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .student-badge {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+        
+        .teacher-badge {
+            background: rgba(255, 183, 77, 0.2);
+            color: #ffb74d;
+        }
+        
+        .admin-badge {
+            background: rgba(100, 255, 218, 0.2);
+            color: #64ffda;
+        }
+        
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            background: var(--success);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1002;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .notification.error {
+            background: var(--danger);
+        }
+        
+        .notification.info {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tab-header {
+                flex-direction: column;
+            }
+            
+            .program-stats {
+                flex-direction: column;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ambassador-info, .simulation-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-bg"></canvas>
+    
+    <!-- Celebration Animation Container -->
+    <div class="celebration" id="celebration"></div>
+    
+    <!-- Notification Container -->
+    <div class="notification" id="notification"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="shield-icon"></div>
+                <h1>CyberSafe Hub</h1>
+            </div>
+            <p class="subtitle">Interactive Cybersecurity Education for Maseru High School</p>
+            
+            <div class="user-info" id="userInfo" style="display: none;">
+                Welcome, <span id="userName"></span> <span id="userBadge" class="user-badge"></span> | 
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+            
+            <!-- Registration Form -->
+            <div class="register-container" id="registerContainer">
+                <div class="register-header">
+                    <h2>Create Your Account</h2>
+                    <p>Join CyberSafe Hub to access cybersecurity learning materials</p>
+                </div>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Choose a username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Create a strong password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userRole">Account Type</label>
+                        <select id="userRole" required>
+                            <option value="">Select your role</option>
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="admin">Administrator</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+                </form>
+                
+                <div class="auth-toggle">
+                    <p>Already have an account? <a id="showLogin">Login here</a></p>
+                </div>
+                
+                <div class="error-message" id="registerError"></div>
+                <div class="success-message" id="registerSuccess"></div>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="login-container" id="loginContainer">
+                <div class="login-header">
+                    <h2>Welcome to CyberSafe Hub</h2>
+                    <p>Please select your role to continue</p>
+                </div>
+                
+                <div class="login-options">
+                    <div class="login-option active" data-role="student">Student</div>
+                    <div class="login-option" data-role="teacher">Teacher</div>
+                    <div class="login-option" data-role="admin">Administrator</div>
+                </div>
+                
+                <div class="login-form active" id="studentLogin">
+                    <div class="form-group">
+                        <label for="studentUsername">Username</label>
+                        <input type="text" id="studentUsername" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="studentPassword">Password</label>
+                        <input type="password" id="studentPassword" placeholder="Enter your password">
+                    </div>
+                    <button class="btn" id="studentLoginBtn" style="width: 100%;">Login as Student</button>
+                </div>
+                
+                <div class="login-form" id="teacherLogin">
+                    <div class="form-group">
+                        <label for="teacherUsername">Username</label>
+                        <input type="text" id="teacherUsername" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="teacherPassword">Password</label>
+                        <input type="password" id="teacherPassword" placeholder="Enter your password">
+                    </div>
+                    <button class="btn" id="teacherLoginBtn" style="width: 100%;">Login as Teacher</button>
+                </div>
+                
+                <div class="login-form" id="adminLogin">
+                    <div class="form-group">
+                        <label for="adminUsername">Username</label>
+                        <input type="text" id="adminUsername" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Password</label>
+                        <input type="password" id="adminPassword" placeholder="Enter your password">
+                    </div>
+                    <button class="btn" id="adminLoginBtn" style="width: 100%;">Login as Administrator</button>
+                </div>
+                
+                <div class="auth-toggle">
+                    <p>Don't have an account? <a id="showRegister">Register here</a></p>
+                </div>
+                
+                <div class="error-message" id="loginError"></div>
+            </div>
+        </header>
+        
+        <!-- Student Dashboard -->
+        <div id="studentDashboard" class="student-dashboard" style="display: none;">
+            <div style="text-align: center; margin: 2rem 0;">
+                <button class="btn" id="cyberContentBtn">Cybersecurity Content</button>
+                <button class="btn" id="cyberAwarenessBtn" style="margin-left: 1rem;">Cybersecurity Awareness Program</button>
+                <button class="btn" id="quizAppBtn" style="margin-left: 1rem;">Take Quiz</button>
+            </div>
+            
+            <div class="hacker-animation">
+                <div class="binary-rain" id="binaryRain"></div>
+                <div class="scan-line"></div>
+            </div>
+            
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">Your Learning Progress</h2>
+            
+            <div id="studentLevels">
+                <!-- Level cards will be dynamically generated here -->
+            </div>
+            
+            <div id="studentNotifications">
+                <!-- Notifications will appear here -->
+            </div>
+            
+            <div class="content-grid">
+                <div class="card threat-card">
+                    <h3><span class="card-icon">⚠️</span> Common Cyber Threats</h3>
+                    <div class="card-content">
+                        <p>Cyber threats are malicious acts that seek to damage data, steal data, or disrupt digital life.</p>
+                        <ul>
+                            <li><strong>Malware:</strong> Software designed to harm devices or networks</li>
+                            <li><strong>Phishing:</strong> Fake emails/messages tricking users to reveal information</li>
+                            <li><strong>Identity Theft:</strong> Using someone's personal information without permission</li>
+                            <li><strong>Cyberbullying:</strong> Harassment through digital platforms</li>
+                            <li><strong>DDoS Attacks:</strong> Overwhelming systems to make them unavailable</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card safeguard-card">
+                    <h3><span class="card-icon">🛡️</span> Cybersecurity Safeguards</h3>
+                    <div class="card-content">
+                        <p>Protect yourself with these essential cybersecurity practices:</p>
+                        <ul>
+                            <li>Use strong, unique passwords for each account</li>
+                            <li>Enable two-factor authentication when available</li>
+                            <li>Be suspicious of unsolicited messages and links</li>
+                            <li>Keep software and apps updated</li>
+                            <li>Adjust privacy settings on social media</li>
+                            <li>Think before you post personal information</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="card-icon">👨‍👩‍👧‍👦</span> Protecting Children Online</h3>
+                    <div class="card-content">
+                        <p>Children are especially vulnerable to online threats. Here's how to protect them:</p>
+                        <ul>
+                            <li>Monitor their online activities and set time limits</li>
+                            <li>Teach them about privacy and not sharing personal information</li>
+                            <li>Use parental controls and safe search options</li>
+                            <li>Encourage open communication about their online experiences</li>
+                            <li>Educate them about cyberbullying and how to respond</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><span class="card-icon">🏫</span> Maseru High School Focus</h3>
+                    <div class="card-content">
+                        <p>Specific cybersecurity considerations for Maseru High School students:</p>
+                        <ul>
+                            <li>Be cautious when using school Wi-Fi networks</li>
+                            <li>Protect school accounts and educational platforms</li>
+                            <li>Avoid sharing login credentials with friends</li>
+                            <li>Report suspicious activities to school IT staff</li>
+                            <li>Participate in school cybersecurity awareness programs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <footer>
+                <p>CyberSafe Hub - Interactive Cybersecurity Education</p>
+                <p>Designed for Maseru High School Students</p>
+            </footer>
+        </div>
+        
+        <!-- Teacher Dashboard -->
+        <div id="teacherDashboard" class="teacher-dashboard" style="display: none;">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">Teacher Dashboard</h2>
+            
+            <div class="card">
+                <h3>Student Progress Tracking</h3>
+                <p>Monitor student performance and quiz scores.</p>
+                
+                <table class="student-progress-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Quiz Scores</th>
+                            <th>Levels Completed</th>
+                            <th>Last Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentProgressTable">
+                        <!-- Student progress data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem;">
+                <h3>Send Notifications</h3>
+                <p>Send announcements or congratulations to students.</p>
+                
+                <div class="form-group">
+                    <label for="notificationMessage">Notification Message</label>
+                    <textarea id="notificationMessage" rows="3" placeholder="Enter your message..."></textarea>
+                </div>
+                
+                <button class="btn" id="sendNotificationBtn">Send Notification to All Students</button>
+            </div>
+        </div>
+        
+        <!-- Admin Dashboard -->
+        <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">Admin Dashboard</h2>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <button class="btn" id="manageUsersBtn">Manage Users</button>
+                <button class="btn" id="viewApplicationsBtn" style="margin-left: 1rem;">View Applications</button>
+            </div>
+            
+            <div class="admin-controls" id="userManagement" style="display: none;">
+                <h3>User Management</h3>
+                <p>View and manage all user accounts:</p>
+                
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Password</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- Users will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="admin-controls" id="applicationsManagement" style="display: none;">
+                <h3>Ambassador Applications</h3>
+                <p>Review and respond to Cyber Ambassador applications:</p>
+                
+                <div id="applicationsList">
+                    <!-- Applications will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cybersecurity Content Modal -->
+    <div class="content-modal" id="cyberContentModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h1 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">Cybersecurity Learning Materials</h1>
+            
+            <div class="content-page" id="page1">
+                <h2>Page 1: Understanding Cybersecurity: Threats and Safeguards</h2>
+                
+                <h3>What is Cybersecurity?</h3>
+                <p>Cybersecurity is the practice of protecting systems, networks, programs, and data from digital attacks. Think of it as the digital equivalent of locking your doors, not sharing your keys, and being aware of your surroundings to avoid pickpockets.</p>
+                
+                <h3>Common Cyber Threats (The "Bad Guys"):</h3>
+                
+                <h4>Malware: Malicious software designed to harm your device.</h4>
+                <ul>
+                    <li><strong>Viruses/Worms:</strong> Spread and damage files or systems.</li>
+                    <li><strong>Ransomware:</strong> Locks your files and demands money to unlock them.</li>
+                    <li><strong>Spyware:</strong> Secretly records what you do on your device.</li>
+                </ul>
+                
+                <h4>Phishing:</h4>
+                <p>Fake emails, texts, or messages that trick you into revealing personal information like passwords or bank details. They often look like they're from a trusted source (e.g., your bank, a popular app).</p>
+                
+                <h4>Identity Theft:</h4>
+                <p>When a criminal uses your personal information (like your ID number or name) to commit fraud, such as opening accounts or taking out loans in your name.</p>
+                
+                <h4>Cyberbullying:</h4>
+                <p>Using digital technology to harass, threaten, or embarrass someone. This can happen on social media, in games, or through messaging.</p>
+                
+                <h4>Privacy Violations:</h4>
+                <p>When your personal information (photos, location, messages) is collected or shared without your permission.</p>
+                
+                <h4>Distributed Denial of Service (DDoS) Attacks:</h4>
+                <p>Overwhelming a website or online service with fake traffic from many sources, making it crash and become unavailable to real users.</p>
+                
+                <h3>Basic Cybersecurity Safeguards (The "Good Habits"):</h3>
+                <ul>
+                    <li><strong>Use Strong Passwords:</strong> Combine letters (upper and lower case), numbers, and symbols. Use a different password for each important account.</li>
+                    <li><strong>Enable Two-Factor Authentication (2FA):</strong> This adds a second step (like a code sent to your phone) to log in, making it much harder for hackers to get in.</li>
+                    <li><strong>Think Before You Click:</strong> Don't click on links or download attachments in suspicious emails or messages.</li>
+                    <li><strong>Update Software:</strong> Always install updates for your apps and operating system. These updates often fix security holes.</li>
+                    <li><strong>Be Careful on Public Wi-Fi:</strong> Avoid doing sensitive things like online banking on public networks. Use a VPN if possible.</li>
+                    <li><strong>Check Privacy Settings:</strong> Regularly review the privacy settings on your social media accounts to control who sees your information.</li>
+                </ul>
+            </div>
+            
+            <div class="content-page" id="page2">
+                <h2>Page 2: Protecting Children in the Digital World</h2>
+                <p>Children are especially vulnerable online. Here's how to protect them from specific threats:</p>
+                
+                <h3>1. Protecting from Identity Theft</h3>
+                <p>A child's clean credit history is a valuable target for thieves.</p>
+                <h4>Safeguards:</h4>
+                <ul>
+                    <li><strong>Keep Documents Safe:</strong> Don't casually share your child's birth certificate or ID number online.</li>
+                    <li><strong>Teach Secrecy:</strong> Explain that their full name, address, and ID number are private and should not be shared in games or on social profiles.</li>
+                    <li><strong>Ask Questions:</strong> Be wary of forms from schools or clubs asking for sensitive data—ask why they need it and how it will be protected.</li>
+                </ul>
+                
+                <h3>2. Spotting and Stopping Phishing</h3>
+                <h4>Safeguards:</h4>
+                <ul>
+                    <li><strong>Look for Red Flags:</strong> Urgent language, spelling mistakes, generic greetings ("Dear User"), and suspicious sender addresses.</li>
+                    <li><strong>Hover, Don't Click:</strong> Hover your mouse over a link to see the real web address before clicking.</li>
+                    <li><strong>Verify Separately:</strong> If a message claims to be from a friend or company, contact them through a different method (e.g., a phone call) to confirm.</li>
+                </ul>
+                
+                <h3>3. Preventing and Responding to Cyberbullying</h3>
+                <h4>Safeguards:</h4>
+                <ul>
+                    <li><strong>Don't Respond:</strong> Replying often makes the bullying worse.</li>
+                    <li><strong>Save the Evidence:</strong> Take screenshots of the messages, posts, or pictures.</li>
+                    <li><strong>Block and Report:</strong> Use platform tools to block the bully and report their behavior.</li>
+                    <li><strong>Tell a Trusted Adult:</strong> Encourage children to talk to a parent, teacher, or counselor immediately.</li>
+                </ul>
+                
+                <h3>4. Guarding Privacy</h3>
+                <h4>Safeguards:</h4>
+                <ul>
+                    <li><strong>"Think Before You Post":</strong> Once something is online, it's almost impossible to completely remove it.</li>
+                    <li><strong>Disable Location Tags:</strong> Turn off geotagging on photos posted to social media.</li>
+                    <li><strong>Use "Friends Only" Settings:</strong> Limit who can see posts and personal information.</li>
+                </ul>
+            </div>
+            
+            <div class="content-page" id="page3">
+                <h2>Page 3: Research on the Community: Maseru High School Students</h2>
+                
+                <h3>Introduction</h3>
+                <p>This section focuses on the digital lifestyle and potential cybersecurity risks for students at Maseru High School. While specific data for the school is limited, we can make informed assumptions based on the general behavior of high school students in regions with growing internet access.</p>
+                
+                <h3>Digital Profile of a Maseru High School Student:</h3>
+                <ul>
+                    <li><strong>High Mobile Usage:</strong> Students likely access the internet primarily through smartphones.</li>
+                    <li><strong>Popular Platforms:</strong> Heavy use of social media (Facebook, Instagram, WhatsApp, TikTok, Snapchat) and online gaming platforms.</li>
+                    <li><strong>Internet Access:</strong> A mix of home Wi-Fi, mobile data, and possibly school or public Wi-Fi networks.</li>
+                    <li><strong>Primary Online Activities:</strong> Socializing, entertainment (music, videos), gaming, and school-related research.</li>
+                </ul>
+                
+                <h3>Inferred Cybersecurity Awareness Level:</h3>
+                <ul>
+                    <li><strong>Tech-Savvy but Not Security-Savvy:</strong> Students are comfortable using technology but may lack knowledge about the underlying risks.</li>
+                    <li><strong>High Trust in Peers:</strong> May be more likely to click links or share information sent by friends without suspicion.</li>
+                    <li><strong>Privacy is Social, Not Technical:</strong> They understand social privacy (e.g., not showing a message to a friend) but may not understand digital privacy (e.g., how apps collect their data).</li>
+                    <li><strong>Limited Formal Training:</strong> Cybersecurity is likely not a formal part of the school curriculum, leaving awareness to chance, peers, or parental guidance.</li>
+                </ul>
+            </div>
+            
+            <div class="content-page" id="page4">
+                <h2>Page 4: Cybersecurity Risks Specific to Maseru High School Students</h2>
+                <p>Based on the digital profile, here are the most likely and dangerous threats facing these students:</p>
+                
+                <h3>Social Media Phishing & Scams:</h3>
+                <ul>
+                    <li><strong>Risk:</strong> Fake login pages for Instagram or Facebook sent via DM, offering "free vouchers" or claiming an account violation. Students might enter their credentials, handing them directly to a scammer.</li>
+                    <li><strong>Consequence:</strong> Hacked social accounts used for further scams or cyberbullying.</li>
+                </ul>
+                
+                <h3>Cyberbullying and Online Harassment:</h3>
+                <ul>
+                    <li><strong>Risk:</strong> The anonymity of online platforms can lead to hurtful comments, spreading of rumors, or creation of fake profiles to harass peers.</li>
+                    <li><strong>Consequence:</strong> Severe emotional distress, anxiety, depression, and impact on academic performance.</li>
+                </ul>
+                
+                <h3>Privacy Violations and "Doxing":</h3>
+                <ul>
+                    <li><strong>Risk:</strong> Oversharing personal information, location check-ins, or personal photos. In a conflict, this information can be weaponized and shared publicly without consent ("doxing").</li>
+                    <li><strong>Consequence:</strong> Real-world stalking, embarrassment, and personal safety risks.</li>
+                </ul>
+                
+                <h3>Gaming-Related Risks:</h3>
+                <ul>
+                    <li><strong>Risk:</strong> Scams offering "free" in-game currency, phishing links in game chats, or cyberbullying within multiplayer games.</li>
+                    <li><strong>Consequence:</strong> Loss of game accounts, malware infection, or exposure to toxic behavior.</li>
+                </ul>
+                
+                <h3>DDoS Attacks on School Infrastructure:</h3>
+                <ul>
+                    <li><strong>Risk:</strong> As noted, DDoS attacks are common in education. A student might use a cheap, readily available online service to attack the school's network, perhaps to avoid an online test or as a prank.</li>
+                    <li><strong>Consequence:</strong> The school's website, learning portal, or internet access crashes, disrupting education for everyone.</li>
+                </ul>
+            </div>
+            
+            <div class="content-page" id="page5">
+                <h2>Page 5: An Interactive Solution for Maseru High School</h2>
+                
+                <h3>"CyberSmart Maseru" - A Cybersecurity Awareness Program</h3>
+                <p>This is a proposed interactive solution to teach students about safe behaviors and risks.</p>
+                
+                <h3>Core Components:</h3>
+                
+                <h4>Short, Engaging Video Modules:</h4>
+                <ul>
+                    <li>Create 3-minute animated videos addressing specific topics: "How to Spot a Fake WhatsApp Message," "What to Do If You're Being Cyberbullied," "Why Your Password is Like Your Toothbrush."</li>
+                </ul>
+                
+                <h4>Interactive Quiz Game ("Phish or Real?"):</h4>
+                <ul>
+                    <li>A game built into the school's learning portal or as a simple app. Students are shown examples of messages, emails, and social media posts and must correctly identify them as "Phish" or "Real." Leaderboards can create healthy competition.</li>
+                </ul>
+                
+                <h4>Student "Cyber Ambassador" Program:</h4>
+                <ul>
+                    <li>Train a group of interested students to become peer mentors. They can lead workshops, create content, and be the first point of contact for students facing online issues.</li>
+                </ul>
+                
+                <h4>Simulated Phishing Exercises:</h4>
+                <ul>
+                    <li>With the school's permission, send fake (but harmless) phishing emails to students. Those who click get redirected to a short training video instead of a malicious site. This is a powerful, hands-on lesson.</li>
+                </ul>
+                
+                <h3>What It Teaches:</h3>
+                <ul>
+                    <li><strong>Safe Behaviors:</strong> Creating strong passwords, using privacy settings, thinking before posting.</li>
+                    <li><strong>Disparate Risks:</strong> Understanding that threats can come from games, social media, and emails.</li>
+                    <li><strong>Identifying Phishing:</strong> Learning the red flags through practice in a safe environment.</li>
+                    <li><strong>How to Deal with Threats:</strong> Clear steps for reporting cyberbullying, phishing, and other incidents to a teacher or ambassador.</li>
+                </ul>
+            </div>
+            
+            <div class="content-page" id="page6">
+                <h2>Page 6: Comprehensive Risk Assessment & Conclusion</h2>
+                
+                <h3>Summary of Risks, Weaknesses, and Effects for Maseru High School</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk</th>
+                            <th>Weakness It Exploits</th>
+                            <th>Possible Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Phishing & Social Media Scams</td>
+                            <td>Lack of awareness & high trust in peers</td>
+                            <td>Theft of personal accounts, financial loss for families, further spread of scams.</td>
+                        </tr>
+                        <tr>
+                            <td>Cyberbullying</td>
+                            <td>Anonymity of online platforms & lack of reporting confidence</td>
+                            <td>Student psychological harm, poor school performance, a toxic school environment.</td>
+                        </tr>
+                        <tr>
+                            <td>Privacy Violations</td>
+                            <td>Oversharing & lack of understanding of digital footprints</td>
+                            <td>Reputational damage, personal safety risks, and identity theft.</td>
+                        </tr>
+                        <tr>
+                            <td>DDoS on School Network</td>
+                            <td>Availability of attack tools & weak network defenses</td>
+                            <td>Complete disruption of digital learning, loss of access to educational resources.</td>
+                        </tr>
+                        <tr>
+                            <td>Gaming-Related Scams</td>
+                            <td>Desire for in-game advantages & trust in gaming communities</td>
+                            <td>Loss of gaming accounts (which may have monetary value), malware infection.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Conclusion: The Path Forward</h3>
+                <p>Cybersecurity is not just a technical issue; it is a community and educational one. For Maseru High School students, the digital world offers incredible opportunities for learning and connection, but it also presents real dangers.</p>
+                <p>The key to safety lies in proactive education. By implementing an interactive, engaging, and ongoing awareness program like "CyberSmart Maseru," the school can empower its students with the knowledge and skills they need to protect themselves. This transforms them from being the weakest link in cybersecurity into the first and most effective line of defense. Building a culture of digital citizenship will ensure that students can navigate the online world confidently and safely.</p>
+            </div>
+            
+            <div class="content-page" id="page7">
+                <h2>Page 7: Advanced Cybersecurity Concepts</h2>
+                
+                <h3>Network Security Fundamentals</h3>
+                <p>Understanding how networks work and how to secure them is crucial in today's interconnected world.</p>
+                
+                <h4>Key Concepts:</h4>
+                <ul>
+                    <li><strong>Firewalls:</strong> Security systems that control incoming and outgoing network traffic</li>
+                    <li><strong>VPNs (Virtual Private Networks):</strong> Encrypted connections that provide privacy and security</li>
+                    <li><strong>Encryption:</strong> Converting information into a code to prevent unauthorized access</li>
+                    <li><strong>Two-Factor Authentication:</strong> Adding an extra layer of security beyond just a password</li>
+                </ul>
+                
+                <h3>Social Engineering Awareness</h3>
+                <p>Social engineering is the psychological manipulation of people to divulge confidential information or perform actions.</p>
+                
+                <h4>Common Techniques:</h4>
+                <ul>
+                    <li><strong>Pretexting:</strong> Creating a fabricated scenario to engage a target</li>
+                    <li><strong>Baiting:</strong> Offering something enticing to lure victims</li>
+                    <li><strong>Quid Pro Quo:</strong> Requesting personal information in exchange for a service</li>
+                    <li><strong>Tailgating:</strong> Following someone into a restricted area without authorization</li>
+                </ul>
+                
+                <h3>Incident Response Planning</h3>
+                <p>Having a plan for when security incidents occur is just as important as prevention.</p>
+                
+                <h4>Key Steps:</h4>
+                <ol>
+                    <li>Preparation: Establish policies and procedures</li>
+                    <li>Identification: Detect and analyze potential security incidents</li>
+                    <li>Containment: Limit the damage and isolate affected systems</li>
+                    <li>Eradication: Remove the cause of the incident</li>
+                    <li>Recovery: Restore systems and operations</li>
+                    <li>Lessons Learned: Document and improve based on the experience</li>
+                </ol>
+            </div>
+            
+            <div class="content-nav">
+                <button class="btn btn-secondary" id="prevPage">Previous</button>
+                <button class="btn" id="nextPage">Next</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cyber Awareness Program Modal -->
+    <div class="cyber-awareness-modal" id="cyberAwarenessModal">
+        <div class="awareness-modal-content">
+            <button class="close-modal" id="closeAwarenessModal">&times;</button>
+            <h1 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">CyberSmart Maseru</h1>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">
+                An Interactive Cybersecurity Awareness Program for Maseru High School
+            </p>
+            
+            <div class="awareness-tabs">
+                <div class="tab-header">
+                    <div class="tab-link active" data-tab="overview">Program Overview</div>
+                    <div class="tab-link" data-tab="videos">Video Modules</div>
+                    <div class="tab-link" data-tab="phishGame">Phish or Real?</div>
+                    <div class="tab-link" data-tab="ambassadors">Cyber Ambassadors</div>
+                    <div class="tab-link" data-tab="simulation">Phishing Simulation</div>
+                </div>
+                
+                <div class="tab-content active" id="overview">
+                    <h2>About CyberSmart Maseru</h2>
+                    <p>CyberSmart Maseru is a comprehensive cybersecurity awareness program designed specifically for Maseru High School students. Our goal is to empower students with the knowledge and skills needed to navigate the digital world safely.</p>
+                    
+                    <div class="program-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Core Components</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Learning Topics</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Student Focused</div>
+                        </div>
+                    </div>
+                    
+                    <h3>What You Will Learn</h3>
+                    <div class="learning-outcomes">
+                        <div class="outcome-item">
+                            <div class="outcome-icon">🔒</div>
+                            <div class="outcome-text">
+                                <strong>Safe Behaviors:</strong> Creating strong passwords, using privacy settings, thinking before posting
+                            </div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-icon">⚠️</div>
+                            <div class="outcome-text">
+                                <strong>Disparate Risks:</strong> Understanding that threats can come from games, social media, and emails
+                            </div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-icon">🎣</div>
+                            <div class="outcome-text">
+                                <strong>Identifying Phishing:</strong> Learning the red flags through practice in a safe environment
+                            </div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-icon">🛡️</div>
+                            <div class="outcome-text">
+                                <strong>Dealing with Threats:</strong> Clear steps for reporting cyberbullying, phishing, and other incidents
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="videos">
+                    <h2>Video Learning Modules</h2>
+                    <p>Short, engaging 3-minute animated videos addressing specific cybersecurity topics:</p>
+                    
+                    <div class="video-grid">
+                        <div class="video-card" data-video="video1">
+                            <div class="video-thumbnail">
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-info">
+                                <h3>How to Spot a Fake WhatsApp Message</h3>
+                                <p>Learn to identify suspicious messages and protect your account</p>
+                                <div class="video-duration">3:15</div>
+                            </div>
+                        </div>
+                        
+                        <div class="video-card" data-video="video2">
+                            <div class="video-thumbnail">
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-info">
+                                <h3>What to Do If You're Being Cyberbullied</h3>
+                                <p>Steps to take when facing online harassment</p>
+                                <div class="video-duration">2:45</div>
+                            </div>
+                        </div>
+                        
+                        <div class="video-card" data-video="video3">
+                            <div class="video-thumbnail">
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-info">
+                                <h3>Why Your Password is Like Your Toothbrush</h3>
+                                <p>The importance of strong, unique passwords</p>
+                                <div class="video-duration">3:30</div>
+                            </div>
+                        </div>
+                        
+                        <div class="video-card" data-video="video4">
+                            <div class="video-thumbnail">
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-info">
+                                <h3>Protecting Your Privacy on Social Media</h3>
+                                <p>How to adjust settings and control your digital footprint</p>
+                                <div class="video-duration">3:10</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-player" id="videoPlayer" style="display: none;">
+                        <div class="player-header">
+                            <h3 id="playerTitle">Video Title</h3>
+                            <button class="close-player" id="closePlayer">&times;</button>
+                        </div>
+                        <div class="player-content">
+                            <div class="video-placeholder">
+                                <p>In a real implementation, you would upload your videos and they would play here.</p>
+                                <p>For this demo, we're showing a placeholder. To add your own videos:</p>
+                                <ol>
+                                    <li>Replace the video placeholders with actual video files</li>
+                                    <li>Update the data-video attributes to point to your video files</li>
+                                    <li>Modify the video player to use the actual video sources</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="phishGame">
+                    <h2>Phish or Real? Game</h2>
+                    <p>Test your ability to identify phishing attempts in this interactive game. Examine each message and decide if it's a legitimate communication or a phishing attempt.</p>
+                    
+                    <div class="game-container">
+                        <div class="game-header">
+                            <div class="score-display">
+                                Score: <span id="phishScore">0</span>
+                            </div>
+                            <div class="lives-display">
+                                Lives: <span id="phishLives">3</span>
+                            </div>
+                        </div>
+                        
+                        <div class="game-content">
+                            <div class="message-display" id="messageDisplay">
+                                <!-- Message content will be loaded here -->
+                            </div>
+                            
+                            <div class="game-actions">
+                                <button class="btn btn-danger" id="phishBtn">PHISH</button>
+                                <button class="btn btn-success" id="realBtn">REAL</button>
+                            </div>
+                        </div>
+                        
+                        <div class="game-feedback" id="gameFeedback">
+                            <!-- Feedback will be shown here -->
+                        </div>
+                        
+                        <div class="leaderboard">
+                            <h3>Leaderboard</h3>
+                            <table class="leaderboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Player</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leaderboardBody">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>CyberChamp</td>
+                                        <td>850</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>SecurityStar</td>
+                                        <td>720</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>PhishBuster</td>
+                                        <td>680</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>SafeSurfer</td>
+                                        <td>550</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>You</td>
+                                        <td id="playerScore">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="ambassadors">
+                    <h2>Cyber Ambassador Program</h2>
+                    <p>Become a student leader in cybersecurity! Cyber Ambassadors are trained students who help peers with online safety issues and promote cybersecurity awareness throughout the school.</p>
+                    
+                    <div class="ambassador-info">
+                        <div class="ambassador-card">
+                            <h3>Why Become a Cyber Ambassador?</h3>
+                            <ul>
+                                <li>Gain valuable leadership experience</li>
+                                <li>Learn advanced cybersecurity skills</li>
+                                <li>Help protect your friends and school</li>
+                                <li>Enhance your college applications</li>
+                                <li>Receive special recognition</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="ambassador-card">
+                            <h3>Ambassador Responsibilities</h3>
+                            <ul>
+                                <li>Lead cybersecurity workshops for peers</li>
+                                <li>Create awareness content (posters, videos)</li>
+                                <li>Be a point of contact for online safety issues</li>
+                                <li>Participate in monthly training sessions</li>
+                                <li>Help organize cybersecurity events</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="application-form">
+                        <h3>Apply to Become a Cyber Ambassador</h3>
+                        <form id="ambassadorForm">
+                            <div class="form-group">
+                                <label for="applicantName">Full Name</label>
+                                <input type="text" id="applicantName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="applicantGrade">Grade Level</label>
+                                <select id="applicantGrade" required>
+                                    <option value="">Select Grade</option>
+                                    <option value="9">Grade 9</option>
+                                    <option value="10">Grade 10</option>
+                                    <option value="11">Grade 11</option>
+                                    <option value="12">Grade 12</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="applicantEmail">Email Address</label>
+                                <input type="email" id="applicantEmail" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="applicantInterest">Why are you interested in becoming a Cyber Ambassador? (100-200 words)</label>
+                                <textarea id="applicantInterest" rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="applicantExperience">Do you have any experience with cybersecurity or technology? (Optional)</label>
+                                <textarea id="applicantExperience" rows="3"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn">Submit Application</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="simulation">
+                    <h2>Phishing Simulation Exercises</h2>
+                    <p>In a controlled environment, we send simulated phishing emails to help students practice identifying red flags. Those who click on suspicious links are redirected to educational content instead of malicious sites.</p>
+                    
+                    <div class="simulation-info">
+                        <div class="simulation-card">
+                            <h3>How It Works</h3>
+                            <ol>
+                                <li>Students receive simulated phishing emails</li>
+                                <li>Those who identify them as phishing can report them</li>
+                                <li>Students who click links are redirected to training</li>
+                                <li>No personal data is collected or compromised</li>
+                                <li>The goal is education, not punishment</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="simulation-card">
+                            <h3>What You'll Learn</h3>
+                            <ul>
+                                <li>Recognize phishing email characteristics</li>
+                                <li>Identify suspicious links and attachments</li>
+                                <li>Understand social engineering tactics</li>
+                                <li>Practice safe email habits</li>
+                                <li>Know how to report suspicious messages</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="simulation-exercise">
+                        <h3>Practice Exercise</h3>
+                        <p>Review the email below and determine if it's legitimate or a phishing attempt:</p>
+                        
+                        <div class="email-simulation">
+                            <div class="email-header">
+                                <div class="email-sender">Maseru High School IT Department &lt;it-support@maseruhigh.edu.ls&gt;</div>
+                                <div class="email-subject">Urgent: Your Account Will Be Suspended</div>
+                                <div class="email-date">Today, 10:30 AM</div>
+                            </div>
+                            <div class="email-body">
+                                <p>Dear Student,</p>
+                                <p>We have detected unusual activity on your school account. To prevent suspension, you must verify your account immediately by clicking the link below:</p>
+                                <p><a href="#" class="suspicious-link">https://maseru-high-account-verification.com/secure</a></p>
+                                <p>Failure to verify within 24 hours will result in account suspension.</p>
+                                <p>Sincerely,<br>IT Support Team<br>Maseru High School</p>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-questions">
+                            <div class="question">
+                                <p>Is this email legitimate or a phishing attempt?</p>
+                                <div class="options">
+                                    <button class="btn btn-secondary" data-answer="phish">Phishing Attempt</button>
+                                    <button class="btn btn-secondary" data-answer="real">Legitimate Email</button>
+                                </div>
+                            </div>
+                            
+                            <div class="question">
+                                <p>What red flags can you identify in this email?</p>
+                                <div class="checkbox-options">
+                                    <label><input type="checkbox" value="urgent"> Urgent language demanding immediate action</label>
+                                    <label><input type="checkbox" value="suspicious-link"> Suspicious link that doesn't match the school's domain</label>
+                                    <label><input type="checkbox" value="generic"> Generic greeting instead of using your name</label>
+                                    <label><input type="checkbox" value="threat"> Threat of negative consequences if you don't comply</label>
+                                </div>
+                            </div>
+                            
+                            <button class="btn" id="checkAnswers">Check Answers</button>
+                            
+                            <div class="exercise-feedback" id="exerciseFeedback" style="display: none;">
+                                <!-- Feedback will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quiz App Modal -->
+    <div class="quiz-app-modal" id="quizAppModal">
+        <div class="quiz-app-content">
+            <div class="quiz-header">
+                <div class="quiz-level" id="quizLevel">Cybersecurity Basics Quiz</div>
+                <div class="quiz-progress" id="quizProgressText">Question 1 of 5</div>
+            </div>
+            
+            <div class="quiz-question" id="quizQuestion">
+                <h3 id="questionText">What is the primary goal of a phishing attack?</h3>
+                <div class="quiz-options" id="quizOptions">
+                    <!-- Options will be populated dynamically -->
+                </div>
+            </div>
+            
+            <div class="quiz-navigation">
+                <button class="btn btn-secondary" id="prevQuestionBtn" disabled>Previous</button>
+                <button class="btn" id="nextQuestionBtn">Next</button>
+            </div>
+            
+            <div class="level-complete" id="levelComplete">
+                <h2>Quiz Complete!</h2>
+                <p>Congratulations! You've completed this quiz with a score of <span id="levelScore">0</span>%.</p>
+                <p id="levelFeedback">Great job! You're on your way to becoming a cybersecurity expert.</p>
+                <button class="btn" id="continueBtn">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix background animation
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$+-*/=%"\'#&_(),.;:?!\\|{}<>[]^~';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 25, 47, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#64ffda';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 33);
+        
+        // Binary rain animation
+        const binaryRain = document.getElementById('binaryRain');
+        for (let i = 0; i < 20; i++) {
+            const column = document.createElement('div');
+            column.className = 'binary-column';
+            column.style.left = `${(100 / 20) * i}%`;
+            
+            for (let j = 0; j < 15; j++) {
+                const digit = document.createElement('div');
+                digit.className = 'binary-digit';
+                digit.textContent = Math.round(Math.random());
+                digit.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                digit.style.animationDelay = `${Math.random() * 2}s`;
+                column.appendChild(digit);
+            }
+            
+            binaryRain.appendChild(column);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Registration and Login System
+        const loginOptions = document.querySelectorAll('.login-option');
+        const loginForms = document.querySelectorAll('.login-form');
+        const loginContainer = document.getElementById('loginContainer');
+        const registerContainer = document.getElementById('registerContainer');
+        const studentDashboard = document.getElementById('studentDashboard');
+        const teacherDashboard = document.getElementById('teacherDashboard');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const userInfo = document.getElementById('userInfo');
+        const userName = document.getElementById('userName');
+        const userBadge = document.getElementById('userBadge');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginError = document.getElementById('loginError');
+        const registerError = document.getElementById('registerError');
+        const registerSuccess = document.getElementById('registerSuccess');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const registerForm = document.getElementById('registerForm');
+        const quizAppBtn = document.getElementById('quizAppBtn');
+        const quizAppModal = document.getElementById('quizAppModal');
+        const manageUsersBtn = document.getElementById('manageUsersBtn');
+        const viewApplicationsBtn = document.getElementById('viewApplicationsBtn');
+        const userManagement = document.getElementById('userManagement');
+        const applicationsManagement = document.getElementById('applicationsManagement');
+        
+        // User database - in a real app, this would be on a server
+        let users = JSON.parse(localStorage.getItem('cybersafeUsers')) || {
+            student: [
+                { username: 'student1', password: 'pass123', name: 'John Student', email: 'john@maseruhigh.edu.ls' }
+            ],
+            teacher: [
+                { username: 'teacher1', password: 'teach123', name: 'Mr. Smith', email: 'smith@maseruhigh.edu.ls' }
+            ],
+            admin: [
+                { username: 'admin', password: 'admin123', name: 'System Administrator', email: 'admin@maseruhigh.edu.ls' }
+            ]
+        };
+        
+        // Student progress data
+        let studentProgress = JSON.parse(localStorage.getItem('studentProgress')) || {};
+        
+        // Ambassador applications
+        let ambassadorApplications = JSON.parse(localStorage.getItem('ambassadorApplications')) || [];
+        
+        // Notifications
+        let notifications = JSON.parse(localStorage.getItem('notifications')) || {};
+        
+        // Quiz data
+        const quizzes = [
+            {
+                id: 1,
+                title: "Cybersecurity Basics",
+                questions: [
+                    {
+                        question: "What is the primary goal of a phishing attack?",
+                        options: [
+                            "To trick you into revealing personal information",
+                            "To make your computer run faster",
+                            "To protect your online privacy",
+                            "To update your software automatically"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "Which of these is the strongest password?",
+                        options: [
+                            "password123",
+                            "john2005",
+                            "T3@ch3r$R0ck!2023",
+                            "12345678"
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "What should you do if you receive a cyberbullying message?",
+                        options: [
+                            "Reply with an even meaner message",
+                            "Save the evidence and tell a trusted adult",
+                            "Ignore it and hope it goes away",
+                            "Share it with all your friends"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "What is malware?",
+                        options: [
+                            "Software that protects your computer",
+                            "Malicious software designed to harm your device",
+                            "A type of computer hardware",
+                            "A security protocol for networks"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "Why is it important to update software regularly?",
+                        options: [
+                            "To get new features",
+                            "Updates often fix security holes",
+                            "To make the software run faster",
+                            "To change the software's appearance"
+                        ],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Online Privacy & Safety",
+                questions: [
+                    {
+                        question: "What is identity theft?",
+                        options: [
+                            "When someone uses your personal information without permission",
+                            "When you forget your password",
+                            "When your computer is infected with a virus",
+                            "When you share too much on social media"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "Which of these is a good practice for protecting your privacy online?",
+                        options: [
+                            "Sharing your location on all social media posts",
+                            "Using privacy settings to limit who sees your information",
+                            "Using the same password for all accounts",
+                            "Accepting all friend requests"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "What should you do before clicking on a link in an email?",
+                        options: [
+                            "Click it immediately if it looks interesting",
+                            "Hover over it to see the actual URL",
+                            "Forward it to all your friends",
+                            "Ignore all links in emails"
+                        ],
+                        correct: 1
+                    }
+                ]
+            }
+        ];
+        
+        // Save users to localStorage
+        function saveUsers() {
+            localStorage.setItem('cybersafeUsers', JSON.stringify(users));
+        }
+        
+        // Save student progress
+        function saveStudentProgress() {
+            localStorage.setItem('studentProgress', JSON.stringify(studentProgress));
+        }
+        
+        // Save ambassador applications
+        function saveAmbassadorApplications() {
+            localStorage.setItem('ambassadorApplications', JSON.stringify(ambassadorApplications));
+        }
+        
+        // Save notifications
+        function saveNotifications() {
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+        }
+        
+        // Set active login option
+        loginOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const role = this.getAttribute('data-role');
+                
+                // Update active option
+                loginOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show corresponding form
+                loginForms.forEach(form => form.classList.remove('active'));
+                document.getElementById(`${role}Login`).classList.add('active');
+            });
+        });
+        
+        // Toggle between login and registration
+        showRegister.addEventListener('click', function() {
+            loginContainer.style.display = 'none';
+            registerContainer.style.display = 'block';
+        });
+        
+        showLogin.addEventListener('click', function() {
+            registerContainer.style.display = 'none';
+            loginContainer.style.display = 'block';
+        });
+        
+        // Registration form submission
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const userRole = document.getElementById('userRole').value;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                registerError.textContent = 'Passwords do not match.';
+                registerError.style.display = 'block';
+                registerSuccess.style.display = 'none';
+                return;
+            }
+            
+            // Check if username already exists
+            let usernameExists = false;
+            Object.keys(users).forEach(role => {
+                if (users[role].some(user => user.username === username)) {
+                    usernameExists = true;
+                }
+            });
+            
+            if (usernameExists) {
+                registerError.textContent = 'Username already exists. Please choose a different one.';
+                registerError.style.display = 'block';
+                registerSuccess.style.display = 'none';
+                return;
+            }
+            
+            // Check if email already exists
+            let emailExists = false;
+            Object.keys(users).forEach(role => {
+                if (users[role].some(user => user.email === email)) {
+                    emailExists = true;
+                }
+            });
+            
+            if (emailExists) {
+                registerError.textContent = 'Email already registered. Please use a different email.';
+                registerError.style.display = 'block';
+                registerSuccess.style.display = 'none';
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                username: username,
+                password: password,
+                name: fullName,
+                email: email
+            };
+            
+            // Add user to the appropriate role
+            users[userRole].push(newUser);
+            saveUsers();
+            
+            // Initialize student progress if student
+            if (userRole === 'student') {
+                studentProgress[username] = {
+                    quizScores: {},
+                    levelsCompleted: [],
+                    currentLevel: 1
+                };
+                saveStudentProgress();
+                
+                // Initialize notifications
+                notifications[username] = [];
+                saveNotifications();
+            }
+            
+            // Show success message
+            registerSuccess.textContent = 'Account created successfully! You can now login.';
+            registerSuccess.style.display = 'block';
+            registerError.style.display = 'none';
+            
+            // Reset form
+            registerForm.reset();
+            
+            // Switch to login after a delay
+            setTimeout(() => {
+                registerContainer.style.display = 'none';
+                loginContainer.style.display = 'block';
+            }, 2000);
+        });
+        
+        // Login buttons
+        document.getElementById('studentLoginBtn').addEventListener('click', function() {
+            attemptLogin('student');
+        });
+        
+        document.getElementById('teacherLoginBtn').addEventListener('click', function() {
+            attemptLogin('teacher');
+        });
+        
+        document.getElementById('adminLoginBtn').addEventListener('click', function() {
+            attemptLogin('admin');
+        });
+        
+        function attemptLogin(role) {
+            const username = document.getElementById(`${role}Username`).value;
+            const password = document.getElementById(`${role}Password`).value;
+            
+            // Check credentials
+            const user = users[role].find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                // Successful login
+                loginError.style.display = 'none';
+                loginContainer.style.display = 'none';
+                userInfo.style.display = 'block';
+                
+                userName.textContent = user.name;
+                
+                // Set user badge based on role
+                userBadge.textContent = role.charAt(0).toUpperCase() + role.slice(1);
+                userBadge.className = 'user-badge ' + role + '-badge';
+                
+                // Store user info in localStorage
+                localStorage.setItem('currentUser', JSON.stringify({
+                    name: user.name,
+                    role: role,
+                    username: username
+                }));
+                
+                // Show appropriate dashboard
+                if (role === 'student') {
+                    studentDashboard.style.display = 'block';
+                    teacherDashboard.style.display = 'none';
+                    adminDashboard.style.display = 'none';
+                    loadStudentProgress(username);
+                    loadStudentNotifications(username);
+                } else if (role === 'teacher') {
+                    studentDashboard.style.display = 'none';
+                    teacherDashboard.style.display = 'block';
+                    adminDashboard.style.display = 'none';
+                    loadStudentProgressTable();
+                } else if (role === 'admin') {
+                    studentDashboard.style.display = 'none';
+                    teacherDashboard.style.display = 'none';
+                    adminDashboard.style.display = 'block';
+                    populateUserTable();
+                }
+            } else {
+                // Failed login
+                loginError.textContent = 'Invalid username or password. Please try again.';
+                loginError.style.display = 'block';
+            }
+        }
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('currentUser');
+            loginContainer.style.display = 'block';
+            studentDashboard.style.display = 'none';
+            teacherDashboard.style.display = 'none';
+            adminDashboard.style.display = 'none';
+            userInfo.style.display = 'none';
+            
+            // Reset forms
+            document.querySelectorAll('input').forEach(input => input.value = '');
+            loginError.style.display = 'none';
+        });
+        
+        // Check if user is already logged in
+        window.addEventListener('DOMContentLoaded', function() {
+            const currentUser = localStorage.getItem('currentUser');
+            
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                loginContainer.style.display = 'none';
+                userInfo.style.display = 'block';
+                
+                userName.textContent = user.name;
+                userBadge.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+                userBadge.className = 'user-badge ' + user.role + '-badge';
+                
+                // Show appropriate dashboard
+                if (user.role === 'student') {
+                    studentDashboard.style.display = 'block';
+                    loadStudentProgress(user.username);
+                    loadStudentNotifications(user.username);
+                } else if (user.role === 'teacher') {
+                    teacherDashboard.style.display = 'block';
+                    loadStudentProgressTable();
+                } else if (user.role === 'admin') {
+                    adminDashboard.style.display = 'block';
+                    populateUserTable();
+                }
+            }
+        });
+        
+        // Load student progress
+        function loadStudentProgress(username) {
+            const studentLevelsContainer = document.getElementById('studentLevels');
+            studentLevelsContainer.innerHTML = '';
+            
+            const progress = studentProgress[username] || {
+                quizScores: {},
+                levelsCompleted: [],
+                currentLevel: 1
+            };
+            
+            // Create level cards
+            quizzes.forEach(quiz => {
+                const score = progress.quizScores[quiz.id] || 0;
+                const isCompleted = score >= 70;
+                
+                const levelCard = document.createElement('div');
+                levelCard.className = 'level-card';
+                levelCard.innerHTML = `
+                    <div class="level-header">
+                        <div class="level-title">${quiz.title}</div>
+                        <div class="level-status ${isCompleted ? 'completed' : 'in-progress'}">
+                            ${isCompleted ? 'Completed' : 'In Progress'}
+                        </div>
+                    </div>
+                    <div class="level-description">Test your knowledge of ${quiz.title.toLowerCase()}</div>
+                    ${isCompleted ? `<div>Score: ${score}%</div>` : ''}
+                    <button class="btn" onclick="startQuiz(${quiz.id})">
+                        ${isCompleted ? 'Retake Quiz' : 'Take Quiz'}
+                    </button>
+                `;
+                
+                studentLevelsContainer.appendChild(levelCard);
+            });
+        }
+        
+        // Load student notifications
+        function loadStudentNotifications(username) {
+            const notificationsContainer = document.getElementById('studentNotifications');
+            notificationsContainer.innerHTML = '';
+            
+            const userNotifications = notifications[username] || [];
+            
+            if (userNotifications.length === 0) {
+                return;
+            }
+            
+            const notificationCard = document.createElement('div');
+            notificationCard.className = 'card';
+            notificationCard.innerHTML = '<h3>Notifications</h3>';
+            
+            userNotifications.forEach(notification => {
+                const notificationItem = document.createElement('div');
+                notificationItem.style.padding = '1rem';
+                notificationItem.style.borderBottom = '1px solid rgba(136, 146, 176, 0.3)';
+                notificationItem.innerHTML = `
+                    <p><strong>${notification.title}</strong></p>
+                    <p>${notification.message}</p>
+                    <small>${new Date(notification.date).toLocaleDateString()}</small>
+                `;
+                notificationCard.appendChild(notificationItem);
+            });
+            
+            notificationsContainer.appendChild(notificationCard);
+        }
+        
+        // Load student progress table for teacher
+        function loadStudentProgressTable() {
+            const tableBody = document.getElementById('studentProgressTable');
+            tableBody.innerHTML = '';
+            
+            // Get all students
+            const students = users.student;
+            
+            students.forEach(student => {
+                const progress = studentProgress[student.username] || {
+                    quizScores: {},
+                    levelsCompleted: [],
+                    currentLevel: 1
+                };
+                
+                const quizScores = Object.values(progress.quizScores);
+                const averageScore = quizScores.length > 0 ? 
+                    Math.round(quizScores.reduce((a, b) => a + b, 0) / quizScores.length) : 0;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${averageScore}%</td>
+                    <td>${progress.levelsCompleted.length}</td>
+                    <td>${getLastActivityDate(student.username)}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Get last activity date for a student
+        function getLastActivityDate(username) {
+            // In a real app, this would come from a database
+            // For now, we'll return a placeholder
+            return '2023-10-15';
+        }
+        
+        // Populate user table for admin
+        function populateUserTable() {
+            const tableBody = document.getElementById('userTableBody');
+            tableBody.innerHTML = '';
+            
+            // Add students
+            users.student.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td><span class="user-badge student-badge">Student</span></td>
+                    <td>${user.password}</td>
+                    <td>
+                        <button class="btn" onclick="editUser('student', '${user.username}')">Edit</button>
+                        <button class="btn btn-secondary" onclick="deleteUser('student', '${user.username}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Add teachers
+            users.teacher.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td><span class="user-badge teacher-badge">Teacher</span></td>
+                    <td>${user.password}</td>
+                    <td>
+                        <button class="btn" onclick="editUser('teacher', '${user.username}')">Edit</button>
+                        <button class="btn btn-secondary" onclick="deleteUser('teacher', '${user.username}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Add admins
+            users.admin.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td><span class="user-badge admin-badge">Administrator</span></td>
+                    <td>${user.password}</td>
+                    <td>
+                        <button class="btn" onclick="editUser('admin', '${user.username}')">Edit</button>
+                        <button class="btn btn-secondary" onclick="deleteUser('admin', '${user.username}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Admin dashboard controls
+        manageUsersBtn.addEventListener('click', function() {
+            userManagement.style.display = 'block';
+            applicationsManagement.style.display = 'none';
+        });
+        
+        viewApplicationsBtn.addEventListener('click', function() {
+            userManagement.style.display = 'none';
+            applicationsManagement.style.display = 'block';
+            loadAmbassadorApplications();
+        });
+        
+        // Load ambassador applications for admin
+        function loadAmbassadorApplications() {
+            const applicationsList = document.getElementById('applicationsList');
+            applicationsList.innerHTML = '';
+            
+            if (ambassadorApplications.length === 0) {
+                applicationsList.innerHTML = '<p>No applications submitted yet.</p>';
+                return;
+            }
+            
+            ambassadorApplications.forEach((application, index) => {
+                const applicationCard = document.createElement('div');
+                applicationCard.className = 'card';
+                applicationCard.style.marginBottom = '1rem';
+                applicationCard.innerHTML = `
+                    <h3>Application from ${application.name}</h3>
+                    <p><strong>Grade:</strong> ${application.grade}</p>
+                    <p><strong>Email:</strong> ${application.email}</p>
+                    <p><strong>Interest:</strong> ${application.interest}</p>
+                    ${application.experience ? `<p><strong>Experience:</strong> ${application.experience}</p>` : ''}
+                    <p><strong>Submitted:</strong> ${new Date(application.date).toLocaleDateString()}</p>
+                    
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label for="response-${index}">Response to Applicant</label>
+                        <textarea id="response-${index}" rows="3" placeholder="Enter your response..."></textarea>
+                    </div>
+                    <button class="btn" onclick="respondToApplication(${index})">Send Response</button>
+                `;
+                
+                applicationsList.appendChild(applicationCard);
+            });
+        }
+        
+        // Respond to ambassador application
+        function respondToApplication(index) {
+            const responseText = document.getElementById(`response-${index}`).value;
+            const application = ambassadorApplications[index];
+            
+            if (!responseText.trim()) {
+                showNotification('Please enter a response before sending.', 'error');
+                return;
+            }
+            
+            // Create notification for student
+            if (!notifications[application.username]) {
+                notifications[application.username] = [];
+            }
+            
+            notifications[application.username].push({
+                title: 'Cyber Ambassador Application Response',
+                message: responseText,
+                date: new Date().toISOString()
+            });
+            
+            saveNotifications();
+            
+            // Remove application from list
+            ambassadorApplications.splice(index, 1);
+            saveAmbassadorApplications();
+            
+            showNotification('Response sent to student successfully!', 'info');
+            loadAmbassadorApplications();
+        }
+        
+        // These functions would connect to a backend in a real application
+        function editUser(role, username) {
+            alert(`Edit user ${username} (${role}) - This would open an edit form in a real application.`);
+        }
+        
+        function deleteUser(role, username) {
+            if (confirm(`Are you sure you want to delete user ${username}?`)) {
+                // Remove user from the users object
+                users[role] = users[role].filter(user => user.username !== username);
+                saveUsers();
+                
+                // Refresh the user table
+                populateUserTable();
+                
+                alert(`User ${username} has been deleted.`);
+            }
+        }
+        
+        // Send notification to all students
+        document.getElementById('sendNotificationBtn').addEventListener('click', function() {
+            const message = document.getElementById('notificationMessage').value;
+            
+            if (!message.trim()) {
+                showNotification('Please enter a notification message.', 'error');
+                return;
+            }
+            
+            // Send notification to all students
+            users.student.forEach(student => {
+                if (!notifications[student.username]) {
+                    notifications[student.username] = [];
+                }
+                
+                notifications[student.username].push({
+                    title: 'Teacher Announcement',
+                    message: message,
+                    date: new Date().toISOString()
+                });
+            });
+            
+            saveNotifications();
+            showNotification('Notification sent to all students!', 'info');
+            document.getElementById('notificationMessage').value = '';
+        });
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Cybersecurity Content Modal
+        const cyberContentBtn = document.getElementById('cyberContentBtn');
+        const cyberContentModal = document.getElementById('cyberContentModal');
+        const closeModal = document.getElementById('closeModal');
+        const prevPage = document.getElementById('prevPage');
+        const nextPage = document.getElementById('nextPage');
+        
+        let currentPage = 1;
+        
+        cyberContentBtn.addEventListener('click', function() {
+            cyberContentModal.style.display = 'block';
+            showPage(1);
+        });
+        
+        closeModal.addEventListener('click', function() {
+            cyberContentModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside content
+        window.addEventListener('click', function(event) {
+            if (event.target === cyberContentModal) {
+                cyberContentModal.style.display = 'none';
+            }
+        });
+        
+        prevPage.addEventListener('click', function() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        });
+        
+        nextPage.addEventListener('click', function() {
+            if (currentPage < 7) {
+                showPage(currentPage + 1);
+            }
+        });
+        
+        function showPage(pageNum) {
+            // Hide all pages
+            document.querySelectorAll('.content-page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            document.getElementById(`page${pageNum}`).style.display = 'block';
+            currentPage = pageNum;
+            
+            // Update button states
+            prevPage.disabled = (pageNum === 1);
+            nextPage.disabled = (pageNum === 7);
+        }
+        
+        // Cyber Awareness Program functionality
+        const cyberAwarenessBtn = document.getElementById('cyberAwarenessBtn');
+        const cyberAwarenessModal = document.getElementById('cyberAwarenessModal');
+        const closeAwarenessModal = document.getElementById('closeAwarenessModal');
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const videoCards = document.querySelectorAll('.video-card');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const closePlayer = document.getElementById('closePlayer');
+        const playerTitle = document.getElementById('playerTitle');
+        
+        // Open Cyber Awareness Program modal
+        cyberAwarenessBtn.addEventListener('click', function() {
+            cyberAwarenessModal.style.display = 'block';
+        });
+        
+        // Close Cyber Awareness Program modal
+        closeAwarenessModal.addEventListener('click', function() {
+            cyberAwarenessModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === cyberAwarenessModal) {
+                cyberAwarenessModal.style.display = 'none';
+            }
+        });
+        
+        // Tab functionality
+        tabLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Update active tab
+                tabLinks.forEach(tab => tab.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show active tab content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabId) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // Video card functionality
+        videoCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('h3').textContent;
+                playerTitle.textContent = title;
+                videoPlayer.style.display = 'block';
+            });
+        });
+        
+        // Close video player
+        closePlayer.addEventListener('click', function() {
+            videoPlayer.style.display = 'none';
+        });
+        
+        // Phish or Real Game
+        const messageDisplay = document.getElementById('messageDisplay');
+        const phishBtn = document.getElementById('phishBtn');
+        const realBtn = document.getElementById('realBtn');
+        const gameFeedback = document.getElementById('gameFeedback');
+        const phishScore = document.getElementById('phishScore');
+        const phishLives = document.getElementById('phishLives');
+        const playerScore = document.getElementById('playerScore');
+        
+        // Game messages
+        const gameMessages = [
+            {
+                type: 'phish',
+                content: `URGENT: Your Facebook account has been compromised! Click here to secure your account: http://fb-security-login-verify.com`,
+                explanation: 'This is a phishing attempt. Legitimate companies use their official domains, not suspicious URLs like this one.'
+            },
+            {
+                type: 'real',
+                content: `Hi John, this is Mr. Smith from the IT department. We need to update your school account password. Please come to the IT office during lunch break.`,
+                explanation: 'This is a legitimate message. It comes from a known person and doesn\'t ask you to click any links.'
+            },
+            {
+                type: 'phish',
+                content: `Congratulations! You've won a $500 Amazon gift card. Claim your prize now: http://amazon-gift-reward-claim.com/winner`,
+                explanation: 'This is a phishing attempt. If it sounds too good to be true, it probably is. Amazon doesn\'t send unsolicited gift card offers.'
+            },
+            {
+                type: 'real',
+                content: `School Announcement: The library will be closed for maintenance this Friday. All books due on Friday can be returned on Monday without penalty.`,
+                explanation: 'This is a legitimate school announcement with specific, realistic information.'
+            },
+            {
+                type: 'phish',
+                content: `Your Microsoft account has suspicious activity. Verify your identity now: http://microsoft-account-security-verify.net`,
+                explanation: 'This is a phishing attempt. Microsoft uses microsoft.com domain, not .net domains for account security.'
+            }
+        ];
+        
+        let currentMessageIndex = 0;
+        let score = 0;
+        let lives = 3;
+        let gameActive = true;
+        
+        // Initialize game
+        function initGame() {
+            score = 0;
+            lives = 3;
+            currentMessageIndex = 0;
+            gameActive = true;
+            updateGameDisplay();
+            loadMessage();
+        }
+        
+        // Load a message
+        function loadMessage() {
+            if (currentMessageIndex >= gameMessages.length) {
+                // Game completed
+                messageDisplay.innerHTML = `<h3>Game Complete!</h3><p>Your final score: ${score}</p><button class="btn" id="playAgain">Play Again</button>`;
+                document.getElementById('playAgain').addEventListener('click', initGame);
+                gameActive = false;
+                return;
+            }
+            
+            const message = gameMessages[currentMessageIndex];
+            messageDisplay.innerHTML = `<p>${message.content}</p>`;
+            gameFeedback.style.display = 'none';
+        }
+        
+        // Update game display
+        function updateGameDisplay() {
+            phishScore.textContent = score;
+            phishLives.textContent = lives;
+            playerScore.textContent = score;
+        }
+        
+        // Check answer
+        function checkAnswer(userAnswer) {
+            if (!gameActive) return;
+            
+            const message = gameMessages[currentMessageIndex];
+            const isCorrect = userAnswer === message.type;
+            
+            if (isCorrect) {
+                score += 100;
+                gameFeedback.textContent = `Correct! ${message.explanation}`;
+                gameFeedback.className = 'game-feedback correct';
+            } else {
+                lives--;
+                gameFeedback.textContent = `Incorrect. ${message.explanation}`;
+                gameFeedback.className = 'game-feedback incorrect';
+            }
+            
+            gameFeedback.style.display = 'block';
+            updateGameDisplay();
+            
+            // Move to next message after a delay
+            setTimeout(() => {
+                currentMessageIndex++;
+                if (lives > 0) {
+                    loadMessage();
+                } else {
+                    // Game over
+                    messageDisplay.innerHTML = `<h3>Game Over</h3><p>You ran out of lives! Final score: ${score}</p><button class="btn" id="playAgain">Play Again</button>`;
+                    document.getElementById('playAgain').addEventListener('click', initGame);
+                    gameActive = false;
+                }
+            }, 2000);
+        }
+        
+        // Event listeners for game buttons
+        phishBtn.addEventListener('click', () => checkAnswer('phish'));
+        realBtn.addEventListener('click', () => checkAnswer('real'));
+        
+        // Initialize game when the tab is opened
+        document.querySelector('[data-tab="phishGame"]').addEventListener('click', initGame);
+        
+        // Ambassador Application Form
+        const ambassadorForm = document.getElementById('ambassadorForm');
+        
+        ambassadorForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            const application = {
+                name: document.getElementById('applicantName').value,
+                grade: document.getElementById('applicantGrade').value,
+                email: document.getElementById('applicantEmail').value,
+                interest: document.getElementById('applicantInterest').value,
+                experience: document.getElementById('applicantExperience').value,
+                username: currentUser.username,
+                date: new Date().toISOString()
+            };
+            
+            // Save application
+            ambassadorApplications.push(application);
+            saveAmbassadorApplications();
+            
+            // Show success message
+            showNotification('Your application has been submitted successfully!', 'info');
+            
+            // Reset form
+            ambassadorForm.reset();
+        });
+        
+        // Phishing Simulation Exercise
+        const checkAnswersBtn = document.getElementById('checkAnswers');
+        const exerciseFeedback = document.getElementById('exerciseFeedback');
+        
+        checkAnswersBtn.addEventListener('click', function() {
+            const answer = document.querySelector('.options .btn.active');
+            const checkboxes = document.querySelectorAll('.checkbox-options input:checked');
+            const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+            
+            let feedback = '';
+            
+            if (answer && answer.getAttribute('data-answer') === 'phish') {
+                feedback += '<p>✅ Correct! This is a phishing attempt.</p>';
+            } else {
+                feedback += '<p>❌ Incorrect. This is a phishing attempt.</p>';
+            }
+            
+            feedback += '<p>Red flags in this email:</p><ul>';
+            
+            const expectedFlags = ['urgent', 'suspicious-link', 'generic', 'threat'];
+            expectedFlags.forEach(flag => {
+                if (selectedValues.includes(flag)) {
+                    feedback += `<li>✅ ${getFlagDescription(flag)}</li>`;
+                } else {
+                    feedback += `<li>❌ ${getFlagDescription(flag)}</li>`;
+                }
+            });
+            
+            feedback += '</ul>';
+            
+            exerciseFeedback.innerHTML = feedback;
+            exerciseFeedback.style.display = 'block';
+        });
+        
+        function getFlagDescription(flag) {
+            const descriptions = {
+                'urgent': 'Urgent language demanding immediate action',
+                'suspicious-link': 'Suspicious link that doesn\'t match the school\'s domain',
+                'generic': 'Generic greeting instead of using your name',
+                'threat': 'Threat of negative consequences if you don\'t comply'
+            };
+            return descriptions[flag] || flag;
+        }
+        
+        // Make option buttons active when clicked
+        document.querySelectorAll('.options .btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.options .btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Quiz App functionality
+        let currentQuizId = 1;
+        let currentQuizQuestion = 0;
+        let quizScore = 0;
+        let selectedOption = null;
+        
+        // Start quiz
+        function startQuiz(quizId) {
+            currentQuizId = quizId;
+            currentQuizQuestion = 0;
+            quizScore = 0;
+            selectedOption = null;
+            
+            const quiz = quizzes.find(q => q.id === quizId);
+            document.getElementById('quizLevel').textContent = quiz.title;
+            
+            loadQuizQuestion();
+            quizAppModal.style.display = 'block';
+        }
+        
+        // Load quiz question
+        function loadQuizQuestion() {
+            const quiz = quizzes.find(q => q.id === currentQuizId);
+            const question = quiz.questions[currentQuizQuestion];
+            
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('quizProgressText').textContent = `Question ${currentQuizQuestion + 1} of ${quiz.questions.length}`;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'quiz-option';
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectOption(optionElement, index));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            document.getElementById('prevQuestionBtn').disabled = currentQuizQuestion === 0;
+            document.getElementById('nextQuestionBtn').textContent = currentQuizQuestion === quiz.questions.length - 1 ? 'Finish' : 'Next';
+            
+            // Hide level complete section
+            document.getElementById('levelComplete').style.display = 'none';
+            document.getElementById('quizQuestion').style.display = 'block';
+        }
+        
+        // Select option in quiz
+        function selectOption(optionElement, index) {
+            // Deselect previous option
+            if (selectedOption) {
+                selectedOption.classList.remove('selected');
+            }
+            
+            // Select new option
+            optionElement.classList.add('selected');
+            selectedOption = optionElement;
+            selectedOptionIndex = index;
+        }
+        
+        // Next question button
+        document.getElementById('nextQuestionBtn').addEventListener('click', function() {
+            if (!selectedOption) {
+                showNotification('Please select an answer before continuing.', 'error');
+                return;
+            }
+            
+            // Check if answer is correct
+            const quiz = quizzes.find(q => q.id === currentQuizId);
+            const correctIndex = quiz.questions[currentQuizQuestion].correct;
+            
+            if (selectedOptionIndex === correctIndex) {
+                quizScore++;
+                selectedOption.classList.add('correct');
+            } else {
+                selectedOption.classList.add('incorrect');
+            }
+            
+            // Move to next question or finish quiz
+            setTimeout(() => {
+                if (currentQuizQuestion < quiz.questions.length - 1) {
+                    currentQuizQuestion++;
+                    loadQuizQuestion();
+                } else {
+                    finishQuiz();
+                }
+                
+                selectedOption = null;
+            }, 1000);
+        });
+        
+        // Previous question button
+        document.getElementById('prevQuestionBtn').addEventListener('click', function() {
+            currentQuizQuestion--;
+            loadQuizQuestion();
+        });
+        
+        // Finish quiz
+        function finishQuiz() {
+            const quiz = quizzes.find(q => q.id === currentQuizId);
+            const percentage = Math.round((quizScore / quiz.questions.length) * 100);
+            
+            // Update student progress
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!studentProgress[currentUser.username]) {
+                studentProgress[currentUser.username] = {
+                    quizScores: {},
+                    levelsCompleted: [],
+                    currentLevel: 1
+                };
+            }
+            
+            // Mark level as completed if score is above threshold
+            if (percentage >= 70 && !studentProgress[currentUser.username].levelsCompleted.includes(currentQuizId)) {
+                studentProgress[currentUser.username].levelsCompleted.push(currentQuizId);
+                
+                // Show celebration
+                showCelebration();
+                
+                // Show notification
+                showNotification(`Congratulations! You've completed the ${quiz.title} quiz with a score of ${percentage}%!`, 'info');
+            }
+            
+            // Update score
+            studentProgress[currentUser.username].quizScores[currentQuizId] = percentage;
+            saveStudentProgress();
+            
+            // Update UI
+            document.getElementById('levelScore').textContent = percentage;
+            
+            // Set feedback based on score
+            let feedback = '';
+            if (percentage >= 90) {
+                feedback = 'Outstanding! You have mastered this material.';
+            } else if (percentage >= 70) {
+                feedback = 'Great job! You have a good understanding of this material.';
+            } else if (percentage >= 50) {
+                feedback = 'Good effort! Review the material and try again to improve your score.';
+            } else {
+                feedback = 'Keep studying! Review the material and try again.';
+            }
+            
+            document.getElementById('levelFeedback').textContent = feedback;
+            
+            // Show level complete section
+            document.getElementById('quizQuestion').style.display = 'none';
+            document.getElementById('levelComplete').style.display = 'block';
+        }
+        
+        // Continue button after quiz completion
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            quizAppModal.style.display = 'none';
+            
+            // Reload student progress to reflect changes
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.role === 'student') {
+                loadStudentProgress(currentUser.username);
+            }
+        });
+        
+        // Quiz App button
+        quizAppBtn.addEventListener('click', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.role === 'student') {
+                const progress = studentProgress[currentUser.username] || {
+                    quizScores: {},
+                    levelsCompleted: [],
+                    currentLevel: 1
+                };
+                
+                // Start with the first quiz or the next incomplete one
+                const nextQuiz = quizzes.find(q => !progress.levelsCompleted.includes(q.id)) || quizzes[0];
+                startQuiz(nextQuiz.id);
+            }
+        });
+        
+        // Close quiz app modal
+        window.addEventListener('click', function(event) {
+            if (event.target === quizAppModal) {
+                quizAppModal.style.display = 'none';
+            }
+        });
+        
+        // Show celebration animation
+        function showCelebration() {
+            const celebration = document.getElementById('celebration');
+            celebration.style.display = 'block';
+            
+            // Create confetti
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.backgroundColor = getRandomColor();
+                celebration.appendChild(confetti);
+            }
+            
+            // Create fireworks
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = Math.random() * 100 + 'vw';
+                    firework.style.top = Math.random() * 100 + 'vh';
+                    firework.style.backgroundColor = getRandomColor();
+                    firework.style.setProperty('--x', (Math.random() - 0.5) * 100 + 'px');
+                    firework.style.setProperty('--y', (Math.random() - 0.5) * 100 + 'px');
+                    celebration.appendChild(firework);
+                    
+                    // Remove firework after animation
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1000);
+                }, i * 100);
+            }
+            
+            // Hide celebration after 5 seconds
+            setTimeout(() => {
+                celebration.style.display = 'none';
+                celebration.innerHTML = '';
+            }, 5000);
+        }
+        
+        // Get random color for celebration
+        function getRandomColor() {
+            const colors = ['#64ffda', '#ff5252', '#ffb74d', '#4caf50', '#e6f1ff'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
